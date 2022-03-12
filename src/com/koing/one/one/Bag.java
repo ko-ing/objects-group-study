@@ -1,4 +1,4 @@
-package com.koing.one;
+package com.koing.one.one;
 
 // 소지품
 public class Bag {
