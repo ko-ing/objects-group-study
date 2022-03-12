@@ -1,4 +1,4 @@
-package com.koing.one;
+package com.koing.one.one;
 
 public class Audience {
     private Bag bag;
