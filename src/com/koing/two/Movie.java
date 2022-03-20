@@ -1,5 +1,7 @@
 package com.koing.two;
 
+import com.koing.two.discountPolicy.DiscountPolicy;
+
 import java.time.Duration;
 
 public class Movie {

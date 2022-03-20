@@ -1,4 +1,8 @@
-package com.koing.two;
+package com.koing.two.discountPolicy;
+
+import com.koing.two.Money;
+import com.koing.two.Screening;
+import com.koing.two.discountCondition.DiscountCondition;
 
 import java.util.ArrayList;
 import java.util.Arrays;

@@ -1,9 +1,12 @@
-package com.koing.two;
+package com.koing.two.discountCondition;
+
+import com.koing.two.Screening;
 
 import java.time.DayOfWeek;
 import java.time.LocalTime;
 
-public class PeriodCondition implements DiscountCondition {
+public class
+PeriodCondition implements DiscountCondition {
     private DayOfWeek dayOfWeek;
     private LocalTime startTime;
     private LocalTime endTime;
