@@ -4,7 +4,7 @@ import com.koing.two.discountCondition.DiscountCondition;
 import com.koing.two.Money;
 import com.koing.two.Screening;
 
-public class PercentDiscountPolicy extends DiscountPolicy {
+public class PercentDiscountPolicy extends DefaultDiscountPolicy {
     private double percent;
 
     public PercentDiscountPolicy(double percent, DiscountCondition... conditions) {

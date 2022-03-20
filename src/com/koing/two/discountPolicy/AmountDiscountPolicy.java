@@ -4,7 +4,7 @@ import com.koing.two.discountCondition.DiscountCondition;
 import com.koing.two.Money;
 import com.koing.two.Screening;
 
-public class AmountDiscountPolicy extends DiscountPolicy {
+public class AmountDiscountPolicy extends DefaultDiscountPolicy {
     private Money discountAmount;
 
     public AmountDiscountPolicy(Money discountAmount, DiscountCondition... conditions) {
