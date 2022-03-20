@@ -23,6 +23,8 @@ public class TwoMain {
             )
         );
 
+        avatar.changeDiscountPolicy(new PercentDiscountPolicy(0.1));
+
         Movie titanic = new Movie("타이타닉",
             Duration.ofMinutes(120),
             Money.wons(1000),
