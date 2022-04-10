@@ -1,7 +1,7 @@
 package com.koing.five.movie;
 
-import com.koing.five.DiscountCondition;
 import com.koing.five.Money;
+import com.koing.five.discountCondition.DiscountCondition;
 
 import java.time.Duration;
 import java.util.List;
