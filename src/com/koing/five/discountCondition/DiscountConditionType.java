@@ -1,4 +1,4 @@
-package com.koing.five;
+package com.koing.five.discountCondition;
 
 public enum DiscountConditionType {
     SEQUENCE,

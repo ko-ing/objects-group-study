@@ -1,5 +1,7 @@
 package com.koing.five;
 
+import com.koing.five.movie.Movie;
+
 import java.time.LocalDateTime;
 
 public class Screening {

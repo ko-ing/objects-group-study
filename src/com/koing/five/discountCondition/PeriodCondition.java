@@ -1,9 +1,11 @@
-package com.koing.five;
+package com.koing.five.discountCondition;
+
+import com.koing.five.Screening;
 
 import java.time.DayOfWeek;
 import java.time.LocalTime;
 
-public class PeriodCondition {
+public class PeriodCondition implements DiscountCondition{
     private DayOfWeek dayOfWeek;
     private LocalTime startTime;
     private LocalTime endTime;

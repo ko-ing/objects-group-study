@@ -1,6 +1,8 @@
-package com.koing.five;
+package com.koing.five.discountCondition;
 
-public class SequenceCondition {
+import com.koing.five.Screening;
+
+public class SequenceCondition implements DiscountCondition {
     private int sequence;
 
     public SequenceCondition(int sequence) {
