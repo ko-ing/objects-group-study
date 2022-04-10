@@ -67,6 +67,6 @@ public class DiscountCondition {
             throw new IllegalArgumentException();
         }
 
-        return this.startTime == sequence;
+        return this.sequence == sequence;
     }
 }
