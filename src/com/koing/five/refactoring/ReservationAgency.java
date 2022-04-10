@@ -10,39 +10,66 @@ import com.koing.five.movie.Movie;
 
 public class ReservationAgency {
     public Reservation reserve(Screening screening, Customer customer, int audienceCount) {
-        Movie movie = screening.getMovie();
-
-        boolean discountable = false;
-
-        for(DiscountCondition condition: movie.getDiscountConditions()) {
-            if (condition.getType() == DiscountConditionType.PERIOD) {
-                discountable = screening.getWhenScreened().getDayOfWeek().equals(screening.getWhenScreened().getDayOfWeek()) &&
-                    condition.getstartTime().compareTo(screening.getWhenScreened().toLocalTime()) <= 0 &&
-                    condition.getEndTime().compareTo(screening.getWhenScreened().toLocalTime()) >= 0;
-            } else {
-                discountable = condition.getSequence() == screening.getSequence();
-            }
-
-            if (discountable) {
-                break;
-            }
-        }
-
-        Money fee;
-        if (discountable) {
-            Money discountAmount = Money.ZERO;
-            switch (movie.getMovieType()) {
-                case AMOUNT_DISCOUNT -> discountAmount = movie.getDiscountAmount();
-                case PERCENT_DISCOUNT -> discountAmount = moive.getFee().times(movie.getDiscountPercent());
-                case NONE_DISCOUNT -> discountAmount = money.ZERO;
-            }
-
-            fee = movie.getFee().minus(discountAmount).times(audienceCount);
-        } else {
-            fee = movie.getFee().times(audienceCount);
-        }
-
-        return new Reservation(customer, screening, fee, audienceCount);
+        boolean discountable = checkDiscountable(screening);
+        Money fee = calculateFee(screening, discountable, audienceCount);
+        return createReservation(screening, customer, fee, audienceCount);
     }
 
+    private boolean checkDiscountable(Screening screening) {
+        return screening.getMovie().getDiscountConditions().stream().anyMatch(condition -> isDiscountable(condition, screening));
+    }
+
+    private boolean isDiscountable(DiscountCondition condition, Screening screening) {
+        if (condition.getType() == DiscountConditionType.PERIOD) {
+            return isSatisfiedByPeriod(condition, screening);
+        }
+
+        return isSatisfiedBySequence(condition, screening);
+    }
+
+    private boolean isSatisfiedByPeriod(DiscountCondition condition, Screening screening) {
+        return screening.getWhenScreened().getDayOfWeek().equals(screening.getWhenScreened().getDayOfWeek()) &&
+            condition.getstartTime().compareTo(screening.getWhenScreened().toLocalTime()) <= 0 &&
+            condition.getEndTime().compareTo(screening.getWhenScreened().toLocalTime()) >= 0;
+    }
+
+    private boolean isSatisfiedBySequence(DiscountCondition condition, Screening screening) {
+        return condition.getSequence() == screening.getSequence();
+    }
+
+    private Money calculateFee(Screening screening, boolean discountable, int audienceCount) {
+        if (discountable) {
+            return screening.getMovie().getFee()
+                .minus(calculateDiscountFee(movie))
+                .times(audienceCount);
+        } else {
+            return screening.getMovie().getFee().times(audienceCount);
+        }
+    }
+
+    private Money calculateDiscountFee(Movie movie) {
+        return switch (movie.getMovieType()) {
+            case AMOUNT_DISCOUNT -> calculateAmountDiscountedFee(movie);
+            case PERCENT_DISCOUNT -> calculateNoneDiscountedFee(movie);
+            case NONE_DISCOUNT -> calculateNoneDiscountedFee(movie);
+        };
+
+        throw new IllegalArgumentException();
+    }
+
+    private Money calculateAmountDiscountedFee(Movie movie) {
+        return movie.getDiscountAmount();
+    }
+
+    private Money calculatePercentDiscountedFee(Movie movie) {
+        return moive.getFee().times(movie.getDiscountPercent());
+    }
+
+    private Money calculateNoneDiscountedFee(Movie movie) {
+        return Money.ZERO;
+    }
+
+    private Reservation createReservation(Screening screening, Customer customer, Money fee, int audienceCount) {
+        return new Reservation(customer, screening, fee, audienceCount);
+    }
 }
